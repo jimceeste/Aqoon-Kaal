@@ -1,0 +1,49 @@
+name: aqoon_bile
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=2.18.4 <3.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+  get: 4.6.5
+  flutter: 
+    sdk: flutter
+  intl_phone_number_input: ^0.7.1
+  lottie: ^2.0.0
+  introduction_screen: ^3.1.0
+  jiffy: ^5.0.0
+  flutter_staggered_animations: ^1.1.1
+  animated_widgets: ^1.1.0
+  shimmer: ^2.0.0
+  badges: ^2.0.3
+  pull_to_refresh: ^2.0.0
+  google_fonts: ^3.0.1
+  dotted_decoration: ^2.0.0
+  money_formatter: ^0.0.3
+  extended_image: ^6.3.2
+  like_button: ^2.0.5
+  get_storage: ^2.0.3
+  http: ^0.13.5
+  modal_progress_hud_nsn: ^0.3.0
+  iconly: ^1.0.1
+  water_drop_nav_bar: ^2.2.0+4
+  flappy_search_bar_ns: ^2.0.2
+
+dev_dependencies: 
+  flutter_lints: ^2.0.0
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/fonts/
+
+  fonts: 
+    - family: BaiJamjuree
+      fonts: 
+        - asset: assets/fonts/BaiJamjuree-Medium.ttf
+
