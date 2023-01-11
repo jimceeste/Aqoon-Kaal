@@ -1,58 +1,93 @@
 import 'dart:developer';
 
 import 'package:aqoon_bile/app/constants.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:aqoon_bile/app/data/models/user_model.dart';
+import 'package:aqoon_bile/app/modules/user/providers/user_provider.dart';
+import 'package:aqoon_bile/app/routes/app_pages.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class UserController extends GetxController {
+  UserController() {
+    getUser();
+  }
+  UserModel user = UserModel();
+  final box = GetStorage();
+  final formKey = GlobalKey<FormState>();
+  final lFormKey = GlobalKey<FormState>();
+  bool get hasData => box.hasData(kUserInfo);
+  bool isVisiblePassword = false;
+  bool isRegisterLoading = false;
+  bool isLoginLoading = false;
+
+  // Login TextFields
   TextEditingController username = TextEditingController();
   TextEditingController lPassword = TextEditingController();
-  TextEditingController name = TextEditingController();
-  TextEditingController email = TextEditingController();
+
+  // Registration TexFields
+  //TextEditingController name = TextEditingController();
+  //TextEditingController email = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
   PhoneNumber initialNumber = PhoneNumber(isoCode: 'SO');
-  final box=GetStorage();
-  final formKey = GlobalKey<FormState>();
-  final lFormKey = GlobalKey<FormState>();
-  bool get hasData => box.hasData(kUserInfo) && box.hasData(currentToken);
-  bool isVisiblePassword = false;
-  bool isRegisterLoading=false;
-  bool isLoginLoading=false;
 
   togglePasswordVisible() {
     isVisiblePassword = !isVisiblePassword;
     update();
   }
 
-  login() {
-    if(lFormKey.currentState?.validate()??false){
-      if(lPassword.text.length <6){
-        erroMessage("Password Length must not less than 6 Digits");
+  login() async {
+    if (lFormKey.currentState?.validate() ?? false) {
+      try {
+        setLoginLoading();
+        user = await UserProvider()
+            .login(password: lPassword.text, username: username.text);
+        update();
+        Get.offNamed(Routes.HOME);
+      } catch (e) {
+        log(e.toString(), name: "Login Error");
+        erroMessage(e.toString());
       }
+      setLoginLoading();
     }
   }
 
-  register() {
+  setRegisterLoading() {
+    isRegisterLoading = !isRegisterLoading;
+    update();
+  }
+
+  setLoginLoading() {
+    isLoginLoading = !isLoginLoading;
+    update();
+  }
+
+  register() async {
     if (formKey.currentState?.validate() ?? false) {
-      String name = this.name.text;
-      String email = this.email.text;
+      // String name = this.name.text;
+      // String email = this.email.text;
       String phone = this.phone.text;
       String password = this.password.text;
       String confirm = confirmPassword.text;
       if (password.length >= 6) {
         if (password == confirm) {
-          if (email.isEmail) {
+          if (phone.startsWith("252")) {
             try {
-              
+              setRegisterLoading();
+              user = await UserProvider()
+                  .createUser(password: password, phone: phone);
+              update();
+              Get.offNamed(Routes.HOME);
             } catch (e) {
               log(e.toString(), name: "Register Error");
+              erroMessage(e.toString());
             }
+            setRegisterLoading();
           } else {
-            erroMessage("Please enter valid E-mail");
+            erroMessage("Please enter valid Number 2526XXXXXXXX");
           }
         } else {
           erroMessage("The two password must mutch each other");
@@ -63,10 +98,67 @@ class UserController extends GetxController {
     }
   }
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  // }
+  getUser() {
+    try {
+      if (box.hasData(kUserInfo)) {
+        print("HAS DATA: ${true}");
+        final json = box.read(kUserInfo);
+        if (json != null) {
+          user = UserModel.fromJson(json);
+          update();
+        }
+      } else {
+        print("NO DATA");
+      }
+    } catch (e) {
+      log(e.toString(), name: "Get User Error");
+    }
+  }
+
+  checkToken() async {
+    try {
+      if (box.hasData(kUserInfo) && user.dDoc != null) {
+        var data = await UserProvider().checkToken();
+
+        if (data["user"]["token"] == user.token) {
+          log("SAME");
+          user.dDoc?.bundles?.clear();
+          print("BEFORE ${user.dDoc?.bundles}");
+          for (var element in data["user"]["bundles"]) {
+            user.dDoc?.bundles?.add(element);
+          }
+          update();
+          print("AFTER ${user.dDoc?.bundles}");
+        } else {
+          logout();
+          update();
+          Get.snackbar(
+            'Oops!',
+            'You are logged out! Someone else has currently logged in using the same username.',
+            backgroundColor: Colors.red[300],
+            colorText: Colors.white,
+          );
+          log("not same");
+        }
+        print(data);
+      }
+    } catch (e) {
+      log(e.toString(), name: "Check token error");
+    }
+  }
+
+  logout() {
+    box.remove(kUserInfo);
+    //Get.offAllNamed(Routes.USER);
+    update();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    getUser();
+  }
 
   // @override
   // void onReady() {

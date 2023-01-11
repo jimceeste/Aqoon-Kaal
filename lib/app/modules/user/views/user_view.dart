@@ -82,8 +82,9 @@ class UserView extends GetView<UserController> {
                         height: 25,
                       ),
                       CustomTextField(
-                        hintText: "Username or E-mail",
-                        icon: IconlyLight.profile,
+                        textInputType: TextInputType.phone,
+                        hintText: "2526XXXXXXXX",
+                        icon: IconlyLight.call,
                         controller: controller.username,
                         textCapitalization: TextCapitalization.words,
                         textInputAction: TextInputAction.next,

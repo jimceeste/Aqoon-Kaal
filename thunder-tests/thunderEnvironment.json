@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "8d7dd91b-3fb6-432b-ac91-eac25190fbdc",
+    "name": "env",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2023-01-09T06:18:05.047Z",
+    "modified": "2023-01-09T06:18:05.047Z",
+    "data": [
+      {
+        "name": "URL",
+        "value": "https://aqoonkaab-server-production.up.railway.app/api/"
+      }
+    ]
+  }
+]

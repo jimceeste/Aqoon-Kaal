@@ -1,4 +1,4 @@
-package com.example.aqoon_bile
+package so.jtech.aqoon_kaab
 
 import io.flutter.embedding.android.FlutterActivity
 

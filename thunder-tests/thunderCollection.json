@@ -1,0 +1,32 @@
+[
+  {
+    "_id": "b451b098-3d21-4606-a0e9-ce8c5950e81f",
+    "colName": "Aqoon Kaab",
+    "created": "2023-01-09T06:20:48.342Z",
+    "sortNum": 20000,
+    "folders": [
+      {
+        "_id": "4f1e7067-08ea-4abb-b652-19046cb0eaab",
+        "name": "users",
+        "containerId": "",
+        "created": "2023-01-09T06:20:57.294Z",
+        "sortNum": 10000
+      },
+      {
+        "_id": "4421f06f-f08c-487a-814d-384277e3b35d",
+        "name": "courses",
+        "containerId": "",
+        "created": "2023-01-09T06:21:05.893Z",
+        "sortNum": 20000
+      }
+    ],
+    "settings": {
+      "headers": [],
+      "tests": [],
+      "options": {
+        "baseUrl": "{{URL}}"
+      },
+      "envId": "8d7dd91b-3fb6-432b-ac91-eac25190fbdc"
+    }
+  }
+]

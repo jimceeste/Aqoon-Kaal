@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../../components/custom_textfeild.dart';
@@ -84,31 +83,31 @@ class RegisterView extends GetView<UserController> {
                       const SizedBox(
                         height: 25,
                       ),
-                      CustomTextField(
-                        hintText: "Name",
-                        icon: IconlyLight.profile,
-                        controller: controller.name,
-                        textCapitalization: TextCapitalization.words,
-                        textInputAction: TextInputAction.next,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Name is required'.tr;
-                          }
-                          return null;
-                        },
-                      ),
+                      // CustomTextField(
+                      //   hintText: "Name",
+                      //   icon: IconlyLight.profile,
+                      //   controller: controller.name,
+                      //   textCapitalization: TextCapitalization.words,
+                      //   textInputAction: TextInputAction.next,
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return 'Name is required'.tr;
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
                       const SizedBox(
                         height: 25,
                       ),
                       CustomTextField(
-                        hintText: "E-mail",
-                        icon: IconlyLight.message,
-                        controller: controller.email,
+                        hintText: "2526XXXXXXXX",
+                        icon: IconlyLight.call,
+                        controller: controller.phone,
                         textCapitalization: TextCapitalization.words,
                         textInputAction: TextInputAction.next,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'E-mail is required'.tr;
+                            return 'Number is required'.tr;
                           }
                           return null;
                         },
@@ -158,50 +157,50 @@ class RegisterView extends GetView<UserController> {
                       const SizedBox(
                         height: 25,
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 30, right: 30),
-                        padding: const EdgeInsets.all(5.0),
-                        decoration: BoxDecoration(
-                          //color: Get.theme.cardColor,
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        child: InternationalPhoneNumberInput(
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Number is required'.tr;
-                            }
-                            return null;
-                          },
-                          onInputChanged: (PhoneNumber number) {},
-                          inputDecoration: const InputDecoration(
-                              // border: InputBorder.none,
-                              hintText: "6XXXXXXXX",
-                              hintStyle: TextStyle(fontSize: 12.0)),
-                          onInputValidated: (bool value) {},
-                          selectorConfig: const SelectorConfig(
-                              selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                              leadingPadding: 8.0,
-                              trailingSpace: false,
-                              setSelectorButtonAsPrefixIcon: true),
-                          ignoreBlank: true,
-                          autoValidateMode: AutovalidateMode.disabled,
-                          selectorTextStyle:
-                              TextStyle(color: Get.theme.hoverColor),
-                          initialValue: controller.initialNumber,
-                          textFieldController: controller.phone,
-                          formatInput: true,
-                          maxLength: 10,
-                          scrollPadding: const EdgeInsets.all(8.0),
-                          spaceBetweenSelectorAndTextField: 0,
-                          keyboardType: const TextInputType.numberWithOptions(
-                              signed: true, decimal: true),
-                          inputBorder: const OutlineInputBorder(),
-                          onSaved: (PhoneNumber number) {},
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
+                      // Container(
+                      //   margin: const EdgeInsets.only(left: 30, right: 30),
+                      //   padding: const EdgeInsets.all(5.0),
+                      //   decoration: BoxDecoration(
+                      //     //color: Get.theme.cardColor,
+                      //     borderRadius: BorderRadius.circular(12.0),
+                      //   ),
+                      //   child: InternationalPhoneNumberInput(
+                      //     validator: (value) {
+                      //       if (value == null || value.isEmpty) {
+                      //         return 'Number is required'.tr;
+                      //       }
+                      //       return null;
+                      //     },
+                      //     onInputChanged: (PhoneNumber number) {},
+                      //     inputDecoration: const InputDecoration(
+                      //         // border: InputBorder.none,
+                      //         hintText: "6XXXXXXXX",
+                      //         hintStyle: TextStyle(fontSize: 12.0)),
+                      //     onInputValidated: (bool value) {},
+                      //     selectorConfig: const SelectorConfig(
+                      //         selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                      //         leadingPadding: 8.0,
+                      //         trailingSpace: false,
+                      //         setSelectorButtonAsPrefixIcon: true),
+                      //     ignoreBlank: true,
+                      //     autoValidateMode: AutovalidateMode.disabled,
+                      //     selectorTextStyle:
+                      //         TextStyle(color: Get.theme.hoverColor),
+                      //     initialValue: controller.initialNumber,
+                      //     textFieldController: controller.phone,
+                      //     formatInput: true,
+                      //     maxLength: 10,
+                      //     scrollPadding: const EdgeInsets.all(8.0),
+                      //     spaceBetweenSelectorAndTextField: 0,
+                      //     keyboardType: const TextInputType.numberWithOptions(
+                      //         signed: true, decimal: true),
+                      //     inputBorder: const OutlineInputBorder(),
+                      //     onSaved: (PhoneNumber number) {},
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   height: 25,
+                      // ),
                       Container(
                         margin: const EdgeInsets.only(left: 35, right: 35),
                         width: double.infinity,

@@ -55,7 +55,7 @@ class ProfileMenuHorizontal extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                 "Ahmed Mohamed",
+              cont.user.dDoc?.phone??"",
                 style: TextStyle(
                     color:
                         Get.isDarkMode ? Colors.white : Get.theme.primaryColor,
@@ -82,7 +82,7 @@ class ProfileMenuHorizontal extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Jamhuriya Technology Solutions',
+                'Aqoon Kaal',
                 style: TextStyle(
                     color:
                         Get.isDarkMode ? Colors.white : Get.theme.primaryColor,

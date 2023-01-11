@@ -43,17 +43,17 @@ class CourseModel {
     price = json['price'].toString();
     published = json['published'];
     paid = json['paid'];
-    if (json['planes'] != null) {
-      planes = <Planes>[];
-      json['planes'].forEach((v) {
-        planes!.add(Planes.fromJson(v));
-      });
-    }
+    // if (json['planes'] != null) {
+    //   planes = <Planes>[];
+    //   json['planes'].forEach((v) {
+    //     planes!.add(Planes.fromJson(v));
+    //   });
+    // }
     sId = json['_id'];
     slug = json['slug'];
-    instructor = json['instructor'] != null
-        ? Instructor.fromJson(json['instructor'])
-        : null;
+    // instructor = json['instructor'] != null
+    //     ? Instructor.fromJson(json['instructor'])
+    //     : null;
     name = json['name'];
     shortDescription = json['short_description'];
     image = json['image'] != null ? Image.fromJson(json['image']) : null;

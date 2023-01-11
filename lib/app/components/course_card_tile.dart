@@ -8,6 +8,7 @@ import 'package:money_formatter/money_formatter.dart';
 import '../constants.dart';
 import '../data/models/course_model.dart';
 import '../modules/courses/controllers/courses_controller.dart';
+import '../modules/courses/views/course_detail_view.dart';
 
 
 class CourseCardTile extends StatelessWidget {
@@ -21,7 +22,7 @@ class CourseCardTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height:Get.height*0.1+20,
-      margin: const EdgeInsets.only(top: 12, left: 8, right: 5),
+      margin: const EdgeInsets.only(top: 12, left: 16, right: 5),
       decoration: BoxDecoration(
         color: Get.theme.cardColor,
         borderRadius: const BorderRadius.only(
@@ -40,9 +41,9 @@ class CourseCardTile extends StatelessWidget {
             topRight: Radius.circular(12),
           ),
           onTap: () {
-            // Get.to(
-            //   () => CourseDetailView(course: course, lesson),
-            // );
+            Get.to(
+              () => CourseDetailView(course: course, lesson),
+            );
           },
           child: IntrinsicHeight(
             child: Row(

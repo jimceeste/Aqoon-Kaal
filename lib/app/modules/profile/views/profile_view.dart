@@ -1,4 +1,5 @@
 import 'package:aqoon_bile/app/components/profile_menu.dart';
+import 'package:aqoon_bile/app/modules/user/controllers/user_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class ProfileView extends GetView<ProfileController> {
                   const ProfileMenuHorizontal(
                     name: "AHMED MOHAMED",
                   ),
-                   const ProfileMenu(
+                  const ProfileMenu(
                     text: "My Courses",
                     leadingIcon: Icon(
                       IconlyLight.discovery,
@@ -55,14 +56,39 @@ class ProfileView extends GetView<ProfileController> {
                       color: kPrimaryColor,
                     ),
                   ),
-                  ProfileMenu(
-                    text: "Sign Out",
-                    leadingIcon: const Icon(
-                      IconlyLight.logout,
-                      color: kPrimaryColor,
-                    ),
-                    onPressed: () {},
-                  )
+                  GetBuilder<UserController>(builder: (cont) {
+                    return Visibility(
+                      visible: cont.hasData,
+                      child: ProfileMenu(
+                        text: "Sign Out",
+                        leadingIcon: const Icon(
+                          IconlyLight.logout,
+                          color: kPrimaryColor,
+                        ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              content: const Text("Are you sure to log out ?"),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    cont.logout();
+                                    Get.back();
+                                  },
+                                  child: const Text("Yes"),
+                                ),
+                                TextButton(
+                                  onPressed: () => Get.back(),
+                                  child: const Text("No"),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  })
                 ],
               ),
             ),

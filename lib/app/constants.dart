@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-const kEndPoint = 'https://sitcoacademy.com/api/';
+const kEndPoint = 'https://aqoonkaab-server-production.up.railway.app/api';
 //const kEndPoint = 'http://192.168.10.129:9000/api/';
 const kIntroScreen = 'introScreen';
 const kUserInfo = 'userInfo';
-const kPrimaryColor = Color(0xff407056);
-const kSecondaryLightColor = Color(0xffB0DCD2);
-const String kLogo = 'assets/logos/1.png';
+const kPrimaryColor = Color(0xff1F93B1);
+const kSecondaryLightColor = Color(0xffBFD331);
+const String kLogo = 'assets/images/app_icon.jpg';
 const String kLanguage = 'language';
 const String kIsDarkMode = 'false';
 const String kfavoriteLectures = 'doctors';
@@ -25,13 +25,20 @@ const Color kPrimaryLightColor = Color(0xFF4485FD);
 
 const Color kPrimaryDarkColor = Color(0xFF03071e);
 const Color kSecondaryDarkColor = Color(0xFF023047);
-void erroMessage( String? message) {
-  Get.snackbar(
-     "uh oh!",
-    message ?? "",
-    margin: EdgeInsets.zero,
-    borderRadius: 0,
-    backgroundColor: Colors.pink,
-    colorText: Colors.white
-  );
+void erroMessage(String? message) {
+  // Get.snackbar(
+  //    "uh oh!",
+  //   message ?? "",
+  //   margin: EdgeInsets.zero,
+  //   borderRadius: 0,
+  //   backgroundColor: Colors.pink,
+  //   colorText: Colors.white
+  // );
+  Fluttertoast.showToast(
+      msg: message ?? "",
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: 1,
+      textColor: Colors.white,
+      fontSize: 16.0);
 }

@@ -1,20 +1,25 @@
-
+import 'package:aqoon_bile/app/constants.dart';
+import 'package:aqoon_bile/app/modules/courses/controllers/courses_controller.dart';
+import 'package:aqoon_bile/app/modules/user/controllers/user_controller.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:iconly/iconly.dart';
 import 'package:like_button/like_button.dart';
 import 'package:money_formatter/money_formatter.dart';
 
 import '../data/models/course_model.dart';
-import '../modules/courses/controllers/courses_controller.dart';
+import '../modules/courses/views/course_detail_view.dart';
 import '../modules/favorites/controllers/favorites_controller.dart';
 
-
 class CourseCardMain extends StatelessWidget {
-  CourseCardMain({Key? key, required this.course}) : super(key: key);
+  CourseCardMain({Key? key, required this.course, this.isLocked = false})
+      : super(key: key);
   final CourseModel course;
   Lessons? lesson;
+  final bool isLocked;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,211 +41,237 @@ class CourseCardMain extends StatelessWidget {
       child: Material(
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12.0),
-        child: InkWell(
-          //highlightColor: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(12.0),
-          onTap: () {
-            // Get.to(
-            //   () => CourseDetailView(course: course, lesson),
-            // );
-          },
-          child: Stack(
-            children: [
-              Row(
+        child: GetBuilder<UserController>(
+          builder: (cont) {
+            return InkWell(
+              //highlightColor: Theme.of(context).cardColor,
+              borderRadius: BorderRadius.circular(12.0),
+              onTap: !isLocket()
+                  ? null
+                  : () {
+                      Get.to(
+                        () => CourseDetailView(course: course, lesson),
+                      );
+                    },
+              child: Stack(
                 children: [
-                  Container(
-                    margin: const EdgeInsets.only(
-                        left: 12.0, bottom: 12.0, top: 12.0, right: 12.0),
-                    padding: const EdgeInsets.all(
-                      4.0,
-                    ),
-                    width: Get.width * 0.3,
-                    height: Get.height * 0.3,
-                    decoration: BoxDecoration(
-                      border:
-                          Border.all(color: Get.theme.primaryColor, width: 0.4),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12.0),
-                      child: course.image != null
-                          ? ExtendedImage.network(
-                              fit: BoxFit.cover,
-                              cache: true,
-                              course.image!.location ?? '',
-                            )
-                          : ExtendedImage.asset(
-                              'assets/logos/7.png',
-                              fit: BoxFit.cover,
-                            ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(left: 8.0),
-                          child: Text(
-                            course.name ?? 'No Name',
-                            style: TextStyle(
-                                color: Theme.of(context).hoverColor,
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w400),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                  Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(
+                            left: 12.0, bottom: 12.0, top: 12.0, right: 12.0),
+                        padding: const EdgeInsets.all(
+                          4.0,
                         ),
-                        const SizedBox(
-                          height: 8.0,
+                        width: Get.width * 0.3,
+                        height: Get.height * 0.3,
+                        decoration: BoxDecoration(
+                          border:
+                              Border.all(color: Get.theme.primaryColor, width: 0.4),
+                          borderRadius: BorderRadius.circular(12.0),
                         ),
-                        Row(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12.0),
+                          child: course.image != null
+                              ? ExtendedImage.network(
+                                  fit: BoxFit.cover,
+                                  cache: true,
+                                  course.image!.location ?? '',
+                                )
+                              : ExtendedImage.asset(
+                                  kLogo,
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                               margin: const EdgeInsets.only(left: 8.0),
-                              child: Icon(
-                                CupertinoIcons.person_2,
-                                color: Theme.of(context).primaryColor,
-                                size: 16,
+                              child: Text(
+                                course.name ?? 'No Name',
+                                style: TextStyle(
+                                    color: Theme.of(context).hoverColor,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w400),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            Expanded(
-                              child: Container(
-                                margin:
-                                    const EdgeInsets.only(left: 8.0, top: 3.0),
-                                child: Text(
-                                  course.instructor != null
-                                      ? course.instructor!.username!
-                                      : 'No Instructor',
-                                  style: const TextStyle(
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w300,
+                            const SizedBox(
+                              height: 8.0,
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(left: 8.0),
+                                  child: Icon(
+                                    CupertinoIcons.person_2,
+                                    color: Theme.of(context).primaryColor,
+                                    size: 16,
                                   ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
                                 ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 8.0,
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(left: 8.0),
-                              child: Icon(
-                                CupertinoIcons.book,
-                                color: Theme.of(context).primaryColor,
-                                size: 16,
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                margin:
-                                    const EdgeInsets.only(left: 8.0, top: 0.0),
-                                child: Text(
-                                  course.sections != null
-                                      ? "${lessonsLength(course)} Lessons"
-                                      : "No Lessons",
-                                  style: const TextStyle(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w300),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 8.0,
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(left: 8.0),
-                              child: Icon(
-                                CupertinoIcons.money_dollar_circle,
-                                color: Theme.of(context).primaryColor,
-                                size: 18,
-                              ),
-                            ),
-                            Expanded(
-                              child: GetBuilder<CoursesController>(
-                                  builder: (cont) {
-                                if (/*cont.isPaidCourse(course)*/ false){}/* {
-                                  return Container(
-                                    margin: const EdgeInsets.only(
-                                        left: 8.0, top: 0.0),
-                                    child: const Text(
-                                      'Paid',
-                                      style: TextStyle(
-                                          fontSize: 14.0,
-                                          color: Colors.green,
-                                          fontWeight: FontWeight.w600),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  );
-                                } */ else {
-                                  return Container(
-                                    margin: const EdgeInsets.only(
-                                        left: 8.0, top: 0.0),
+                                Expanded(
+                                  child: Container(
+                                    margin:
+                                        const EdgeInsets.only(left: 8.0, top: 3.0),
                                     child: Text(
-                                      price(course),
-                                      style: TextStyle(
-                                          fontSize: 14.0,
-                                          color: Theme.of(context).primaryColor,
-                                          fontWeight: FontWeight.w600),
+                                      course.instructor != null
+                                          ? course.instructor!.username!
+                                          : 'Aqoon Kaal',
+                                      style: const TextStyle(
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w300,
+                                      ),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
-                                  );
-                                }
-                              }),
+                                  ),
+                                ),
+                              ],
                             ),
+                            const SizedBox(
+                              height: 8.0,
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(left: 8.0),
+                                  child: Icon(
+                                    CupertinoIcons.book,
+                                    color: Theme.of(context).primaryColor,
+                                    size: 16,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    margin:
+                                        const EdgeInsets.only(left: 8.0, top: 0.0),
+                                    child: Text(
+                                      course.sections != null
+                                          ? "${lessonsLength(course)} Lessons"
+                                          : "No Lessons",
+                                      style: const TextStyle(
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.w300),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 8.0,
+                            ),
+                            GetBuilder<CoursesController>(builder: (cont) {
+                              if (!isLocket()) {
+                                return Row(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 8.0),
+                                      child: Icon(
+                                        IconlyLight.lock,
+                                        color: Theme.of(context).primaryColor,
+                                        size: 18,
+                                      ),
+                                    ),
+                                    Expanded(
+                                        child: Container(
+                                      margin: const EdgeInsets.only(
+                                          left: 8.0, top: 0.0),
+                                      child: const Text(
+                                        'Locked',
+                                        style: TextStyle(
+                                            fontSize: 14.0,
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.w600),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    )),
+                                  ],
+                                );
+                              } else {
+                                return Row(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 8.0),
+                                      child: Icon(
+                                        IconlyLight.play,
+                                        color: Theme.of(context).primaryColor,
+                                        size: 18,
+                                      ),
+                                    ),
+                                    Expanded(
+                                        child: Container(
+                                      margin: const EdgeInsets.only(
+                                          left: 8.0, top: 0.0),
+                                      child: const Text(
+                                        'Watch',
+                                        style: TextStyle(
+                                            fontSize: 14.0,
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.w600),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    )),
+                                  ],
+                                );
+                              }
+                            }),
                           ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
+                  Positioned(
+                      bottom: 5,
+                      right: 5,
+                      child: GetBuilder<FavoritesController>(builder: (cont) {
+                        return LikeButton(
+                          onTap: (isLiked) async {
+                            if (!isLiked) {
+                              // cont.saveFavoriteCourse(course);
+                              return true;
+                            } else {
+                              // cont.removeFavoriteCourse(course);
+                              return false;
+                            }
+                          },
+
+                          //isLiked: cont.checkCourseInFavorite(course),
+                          size: 16,
+                          likeBuilder: (bool isLiked) {
+                            if (!isLiked) {
+                              return const Icon(
+                                CupertinoIcons.heart,
+                                size: 16,
+                              );
+                            }
+                            return null;
+                          },
+                        );
+                      }))
                 ],
               ),
-              Positioned(
-                  bottom: 5,
-                  right: 5,
-                  child: GetBuilder<FavoritesController>(builder: (cont) {
-                    return LikeButton(
-                      onTap: (isLiked) async {
-                        if (!isLiked) {
-                         // cont.saveFavoriteCourse(course);
-                          return true;
-                        } else {
-                         // cont.removeFavoriteCourse(course);
-                          return false;
-                        }
-                      },
-                      
-                      //isLiked: cont.checkCourseInFavorite(course),
-                      size: 16,
-                      likeBuilder: (bool isLiked) {
-                        if (!isLiked) {
-                          return const Icon(
-                            CupertinoIcons.heart,
-                            size: 16,
-                          );
-                        }
-                        return null;
-                      },
-                    );
-                  }))
-            ],
-          ),
+            );
+          }
         ),
       ),
     );
+  }
+
+  bool isLocket() {
+    final box = GetStorage();
+    if (box.hasData(kUserInfo)) {
+      return isLocked;
+    } else {
+      return false;
+    }
   }
 }
 

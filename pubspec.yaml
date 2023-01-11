@@ -30,12 +30,26 @@ dependencies:
   iconly: ^1.0.1
   water_drop_nav_bar: ^2.2.0+4
   flappy_search_bar_ns: ^2.0.2
+  webview_flutter: ^4.0.1
+  internet_connection_checker: ^1.0.0+1
+  connectivity_plus: ^3.0.2
+  connectivity_wrapper: ^1.1.1
+  fluttertoast: ^8.1.2
+  after_layout: ^1.2.0
+  auto_size_text: ^3.0.0
+  pod_player: ^0.0.6
 
 dev_dependencies: 
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.11.0
+  flutter_native_splash: ^2.2.16
   flutter_test: 
     sdk: flutter
-
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/app_icon.jpg"
+ 
 flutter: 
   uses-material-design: true
   assets:
