@@ -12,6 +12,7 @@ abstract class Routes {
   static const ABOUT = _Paths.ABOUT;
   static const PRIVACY = _Paths.PRIVACY;
   static const PROFILE = _Paths.PROFILE;
+  static const LANGUAGES = _Paths.LANGUAGES;
 }
 
 abstract class _Paths {
@@ -25,4 +26,5 @@ abstract class _Paths {
   static const ABOUT = '/about';
   static const PRIVACY = '/privacy';
   static const PROFILE = '/profile';
+  static const LANGUAGES = '/languages';
 }

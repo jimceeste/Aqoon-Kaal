@@ -10,8 +10,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/intro/bindings/intro_binding.dart';
 import '../modules/intro/views/intro_view.dart';
-import '../modules/language/bindings/language_binding.dart';
-import '../modules/language/views/language_view.dart';
+import '../modules/languages/bindings/languages_binding.dart';
+import '../modules/languages/views/languages_view.dart';
 import '../modules/privacy/bindings/privacy_binding.dart';
 import '../modules/privacy/views/privacy_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
@@ -48,11 +48,6 @@ class AppPages {
       binding: FavoritesBinding(),
     ),
     GetPage(
-      name: _Paths.LANGUAGE,
-      page: () => const LanguageView(),
-      binding: LanguageBinding(),
-    ),
-    GetPage(
       name: _Paths.INTRO,
       page: () => const IntroView(),
       binding: IntroBinding(),
@@ -71,6 +66,11 @@ class AppPages {
       name: _Paths.PROFILE,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.LANGUAGES,
+      page: () => const LanguagesView(),
+      binding: LanguagesBinding(),
     ),
   ];
 }
