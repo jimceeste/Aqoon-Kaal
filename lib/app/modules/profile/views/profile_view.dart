@@ -1,5 +1,6 @@
 import 'package:aqoon_bile/app/components/profile_menu.dart';
 import 'package:aqoon_bile/app/extensions.dart';
+import 'package:aqoon_bile/app/modules/courses/views/courses_view.dart';
 import 'package:aqoon_bile/app/modules/favorites/controllers/favorites_controller.dart';
 import 'package:aqoon_bile/app/modules/languages/controllers/languages_controller.dart';
 import 'package:aqoon_bile/app/modules/user/controllers/user_controller.dart';
@@ -32,6 +33,7 @@ class ProfileView extends GetView<ProfileController> {
                     name: "AHMED MOHAMED",
                   ),
                   ProfileMenu(
+                    onPressed: () => Get.to(()=>CoursesView()),
                     text: LocaleKeys.my_courses.tr,
                     leadingIcon: Icon(
                       IconlyLight.discovery,

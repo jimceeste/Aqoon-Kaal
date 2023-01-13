@@ -1,4 +1,5 @@
 import 'package:aqoon_bile/app/constants.dart';
+import 'package:aqoon_bile/app/modules/favorites/views/favorites_view.dart';
 import 'package:aqoon_bile/app/modules/user/controllers/user_controller.dart';
 import 'package:aqoon_bile/generated/locales.g.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +33,8 @@ class UserInfoCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Text(
-                     LocaleKeys.welcome.tr,
+                    Text(
+                      LocaleKeys.welcome.tr,
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
                     ),
@@ -50,7 +51,10 @@ class UserInfoCard extends StatelessWidget {
                   ],
                 ),
               ),
-              const Icon(IconlyLight.heart)
+              GestureDetector(
+                onTap: () => Get.to(()=>FavoritesView()),
+                child: const Icon(IconlyLight.heart),
+              ),
             ],
           ),
         );

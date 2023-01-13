@@ -13,6 +13,7 @@ import '../../../data/models/bundel_model.dart';
 class CoursesController extends GetxController {
   List<CourseModel> courses = [];
   List<BundleModel> bundles = [];
+  List<BundleModel> myBundles = [];
   bool isBundleLoading = false;
   bool isCourseLoading = false;
   bool isBuyingCourse = false;
@@ -136,6 +137,32 @@ class CoursesController extends GetxController {
       isPaid = false;
     }
     return isPaid;
+  }
+
+  getMyCourses() {
+    try {
+      final user = Get.find<UserController>();
+      if (user.hasData) {
+        if (bundles.isNotEmpty) {
+          for (var element in bundles) {
+            for (var u in user.user.dDoc?.bundles ?? []) {
+              if (element.sId == u) {
+                myBundles.add(element);
+              }
+            }
+          }
+          update();
+        } else {
+          myBundles = [];
+          update();
+        }
+      } else {
+        myBundles = [];
+        update();
+      }
+    } catch (e) {
+      log(e.toString(), name: "Get My Courses ERROR");
+    }
   }
   // @override
   // void onInit() {
