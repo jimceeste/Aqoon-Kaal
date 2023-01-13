@@ -38,7 +38,9 @@ void main() async {
         darkTheme: Apptheme.dark,
         translationsKeys: AppTranslation.translations,
         locale: Locale(strLocale.substring(0, 2), strLocale.substring(3, 5)),
-        initialRoute: isIntro == true ? AppPages.INITIAL : Routes.INTRO,
+        //initialRoute: isIntro == true ? AppPages.INITIAL : Routes.INTRO,
+        initialRoute: AppPages.INITIAL,
+        textDirection: TextDirection.ltr,
       ),
     ),
   );

@@ -57,6 +57,7 @@ flutter:
     - assets/images/
     - assets/fonts/
     - assets/locales/
+    - assets/icons/
 
   fonts: 
     - family: BaiJamjuree

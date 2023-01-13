@@ -1,4 +1,6 @@
+import 'package:aqoon_bile/app/data/models/bundel_model.dart';
 import 'package:aqoon_bile/app/modules/home/controllers/home_controller.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flappy_search_bar_ns/flappy_search_bar_ns.dart';
 import 'package:flappy_search_bar_ns/search_bar_style.dart';
 import 'package:flutter/material.dart';
@@ -6,10 +8,13 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
+import '../../../../generated/locales.g.dart';
+import '../../../components/bundle_card.dart';
 import '../../../components/course_card_tile_main.dart';
 import '../../../constants.dart';
 import '../../../data/models/course_model.dart';
 import '../../courses/controllers/courses_controller.dart';
+
 class Search extends GetView<HomeController> {
   const Search({Key? key}) : super(key: key);
 
@@ -24,7 +29,7 @@ class Search extends GetView<HomeController> {
           child: Column(
             children: [
               Expanded(
-                child: SearchBar<CourseModel>(
+                child: SearchBar<BundleModel>(
                   iconActiveColor: kPrimaryColor,
                   hintStyle: GoogleFonts.poppins(
                       fontSize: 14,
@@ -44,9 +49,9 @@ class Search extends GetView<HomeController> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   onSearch: (text) {
-                    return controller.getCourse(text ?? "", cont.courses);
+                    return controller.getBundle(text ?? "", cont.bundles);
                   },
-                  hintText: 'Search Course',
+                  hintText: LocaleKeys.search_courses.tr,
                   onError: (error) => Text('ERROR: ${error.toString()}'),
                   placeHolder: placeHolder(),
                   scrollDirection: Axis.vertical,
@@ -58,8 +63,7 @@ class Search extends GetView<HomeController> {
                       SizedBox(
                         width: 150,
                         height: 150,
-                        child:
-                           FlutterLogo(),
+                        child: FlutterLogo(),
                       ),
                       Text('Oops! not found!')
                     ],
@@ -70,9 +74,9 @@ class Search extends GetView<HomeController> {
                   },
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
-                  crossAxisCount: 1,
-                  onItemFound: (CourseModel? course, int index) {
-                    return CourseCardMain(course: course!);
+                  crossAxisCount: 2,
+                  onItemFound: (BundleModel? bundle, int index) {
+                    return BundleCard(bundle: bundle!);
                   },
                 ),
               ),
@@ -86,7 +90,7 @@ class Search extends GetView<HomeController> {
   Widget placeHolder() {
     return GetBuilder<CoursesController>(
       builder: (cont) {
-        if (cont.isCourseLoading) {
+        if (cont.isBundleLoading) {
           return const Center(
             child: SizedBox(
               width: 100,
@@ -94,28 +98,31 @@ class Search extends GetView<HomeController> {
               child: FlutterLogo(),
             ),
           );
-        } else if (cont.courses.isEmpty) {
+        } else if (cont.bundles.isEmpty) {
           return Center(
             child: SizedBox(
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 SizedBox(
                   width: 200,
                   height: 200,
-                  child: FlutterLogo(),
+                  child: ExtendedImage.asset(kLogo),
                 ),
                 Text('No Courses Found Currently'),
               ],
             )),
           );
         } else {
-          return ListView.builder(
-            itemCount: cont.courses.length < 2 ? cont.courses.length : 2,
-            itemBuilder: ((context, index) =>
-                CourseCardMain(
-                  course: cont.courses[index],
-                )),
+          return GridView.builder(
+            itemCount: cont.bundles.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisExtent: Get.height * 0.3 + 10,
+            ),
+            itemBuilder: (context, index) => BundleCard(
+              bundle: cont.bundles[index],
+            ),
           );
         }
       },

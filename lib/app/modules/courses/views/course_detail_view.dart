@@ -1,4 +1,5 @@
 import 'package:aqoon_bile/app/modules/user/controllers/user_controller.dart';
+import 'package:aqoon_bile/generated/locales.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,7 @@ class CourseDetailView extends GetView<CoursesController> {
           iconTheme: IconThemeData(color: Get.theme.hoverColor),
           elevation: 0,
           title: Text(
-            lesson != null ? lesson!.title! : 'Course Detail',
+            lesson != null ? lesson!.title! : LocaleKeys.course_detail.tr,
             style: TextStyle(
                 color: Get.theme.hoverColor, fontWeight: FontWeight.w300),
           ),
@@ -134,8 +135,8 @@ class CourseDetailView extends GetView<CoursesController> {
                   left: 8.0,
                   top: 12,
                 ),
-                child: const Text(
-                  'Topics',
+                child:  Text(
+                 LocaleKeys.topics.tr,
                   style: TextStyle(fontWeight: FontWeight.w600),
                 ),
               ),
@@ -145,8 +146,8 @@ class CourseDetailView extends GetView<CoursesController> {
                   left: 8.0,
                   top: 12,
                 ),
-                child: const Text(
-                  'Lessons',
+                child:  Text(
+                   LocaleKeys.lessons.tr,
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),

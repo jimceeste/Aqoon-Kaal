@@ -9,6 +9,7 @@ import 'package:iconly/iconly.dart';
 import 'package:like_button/like_button.dart';
 import 'package:money_formatter/money_formatter.dart';
 
+import '../../generated/locales.g.dart';
 import '../data/models/course_model.dart';
 import '../modules/favorites/controllers/favorites_controller.dart';
 
@@ -157,7 +158,7 @@ class BundleCard extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(12)),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    "Watch",
+                                    LocaleKeys.watch.tr,
                                     style: TextStyle(
                                         color: Theme.of(context).cardColor),
                                   ),
@@ -296,14 +297,14 @@ class BundleCard extends StatelessWidget {
                     return LikeButton(
                       onTap: (isLiked) async {
                         if (!isLiked) {
-                          // cont.saveFavoriteCourse(course);
+                          cont.saveFavoriteCourse(bundle);
                           return true;
                         } else {
-                          // cont.removeFavoriteCourse(course);
+                           cont.removeFavoriteCourse(bundle);
                           return false;
                         }
                       },
-                      isLiked: /*cont.checkCourseInFavorite(course)*/ true,
+                      isLiked: cont.checkCourseInFavorite(bundle),
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       padding: const EdgeInsets.all(8.0),

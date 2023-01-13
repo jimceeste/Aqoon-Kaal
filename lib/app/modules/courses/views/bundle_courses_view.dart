@@ -14,6 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import '../../../../generated/locales.g.dart';
 import '../../../components/course_card_tile_main.dart';
 import '../../../components/option_card.dart';
 
@@ -52,7 +53,7 @@ class _BundleCoursesViewState extends State<BundleCoursesView>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                "Dhamaan Casharad \naad Heleeso",
+             LocaleKeys.all_lessons_you_get.tr,
                 style: GoogleFonts.poppins(
                     fontSize: 18, fontWeight: FontWeight.w500),
               ),
@@ -100,7 +101,7 @@ class _BundleCoursesViewState extends State<BundleCoursesView>
                   onPressed: () => paymentPopUp(),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: kPrimaryColor, elevation: 0),
-                  child: const Text("Buy now"),
+                  child:  Text( LocaleKeys.buy_now.tr,),
                 ),
               ),
       );

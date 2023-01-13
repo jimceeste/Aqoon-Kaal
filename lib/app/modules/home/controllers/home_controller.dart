@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:aqoon_bile/app/data/models/bundel_model.dart';
 import 'package:aqoon_bile/app/modules/home/tabs/courses.dart';
 import 'package:aqoon_bile/app/modules/home/tabs/search.dart';
 import 'package:aqoon_bile/app/modules/profile/views/profile_view.dart';
@@ -12,7 +13,7 @@ import '../../../data/models/course_model.dart';
 import '../tabs/home.dart';
 
 class HomeController extends GetxController {
-  final SearchBarController<CourseModel> searchBarController =
+  final SearchBarController<BundleModel> searchBarController =
       SearchBarController();
   int index = 0;
 
@@ -27,10 +28,10 @@ class HomeController extends GetxController {
     update();
   }
 
-  Future<List<CourseModel>> getCourse(
-      String text, List<CourseModel> courses) async {
+  Future<List<BundleModel>> getBundle(
+      String text, List<BundleModel> courses) async {
     await Future.delayed(const Duration(milliseconds: 500));
-    List<CourseModel> course = [];
+    List<BundleModel> course = [];
     for (int i = 0; i < courses.length; i++) {
       final courseName = courses[i].name?.toLowerCase();
 

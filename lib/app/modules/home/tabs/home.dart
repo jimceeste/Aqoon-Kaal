@@ -4,6 +4,7 @@ import 'package:aqoon_bile/app/modules/user/views/user_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../generated/locales.g.dart';
 import '../../../components/bundle_card.dart';
 import '../../../components/search.dart';
 import '../../../components/seprator.dart';
@@ -22,7 +23,7 @@ class Home extends StatelessWidget {
               [
                 const UserInfoCard(),
                 SearchCard(onTap: () => Get.to(() => const UserView())),
-                Seprator(title: "Popular Courses", onPressed: () {}),
+                Seprator(title:  LocaleKeys.popular_courses.tr, onPressed: () {}),
                 GetBuilder<CoursesController>(
                   builder: (cont) {
                     if (cont.isBundleLoading) {

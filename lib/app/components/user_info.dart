@@ -1,5 +1,6 @@
 import 'package:aqoon_bile/app/constants.dart';
 import 'package:aqoon_bile/app/modules/user/controllers/user_controller.dart';
+import 'package:aqoon_bile/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
@@ -31,8 +32,8 @@ class UserInfoCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Welcome",
+                     Text(
+                     LocaleKeys.welcome.tr,
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
                     ),

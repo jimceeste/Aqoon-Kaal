@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import '../../../../generated/locales.g.dart';
 import '../../../components/custom_textfeild.dart';
 import '../../../constants.dart';
 
@@ -74,8 +76,8 @@ class RegisterView extends GetView<UserController> {
                         margin:
                             const EdgeInsets.only(top: 20, left: 50, right: 50),
                         alignment: Alignment.center,
-                        child: const Text(
-                          "Please enter your full-Name, E-mail, Password and Phone",
+                        child: Text(
+                          LocaleKeys.please_enter_your.tr,
                           style: TextStyle(fontSize: 16),
                           textAlign: TextAlign.center,
                         ),
@@ -99,24 +101,68 @@ class RegisterView extends GetView<UserController> {
                       const SizedBox(
                         height: 25,
                       ),
-                      CustomTextField(
-                        hintText: "2526XXXXXXXX",
-                        icon: IconlyLight.call,
-                        controller: controller.phone,
-                        textCapitalization: TextCapitalization.words,
-                        textInputAction: TextInputAction.next,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Number is required'.tr;
-                          }
-                          return null;
-                        },
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 30),
+                        padding: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                          //color: Get.theme.cardColor,
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        child: InternationalPhoneNumberInput(
+                          textFieldController: cont.rText,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Number is required'.tr;
+                            }
+                            return null;
+                          },
+                          onInputChanged: (PhoneNumber number) {
+                            cont.rUsernameValue.value =
+                                number.phoneNumber.toString();
+                          },
+                          inputDecoration: const InputDecoration(
+                              // border: InputBorder.none,
+                              hintText: 'Your Number',
+                              hintStyle: TextStyle(fontSize: 12.0)),
+                          onInputValidated: (bool value) {},
+                          selectorConfig: const SelectorConfig(
+                              selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                              leadingPadding: 8.0,
+                              trailingSpace: false,
+                              setSelectorButtonAsPrefixIcon: true),
+                          ignoreBlank: true,
+                          autoValidateMode: AutovalidateMode.disabled,
+                          selectorTextStyle:
+                              TextStyle(color: Get.theme.hoverColor),
+                          initialValue: cont.number,
+                          formatInput: true,
+                          maxLength: 10,
+                          scrollPadding: const EdgeInsets.all(8.0),
+                          spaceBetweenSelectorAndTextField: 0,
+                          keyboardType: const TextInputType.numberWithOptions(
+                              signed: true, decimal: true),
+                          inputBorder: const OutlineInputBorder(),
+                          onSaved: (PhoneNumber number) {},
+                        ),
                       ),
+                      // CustomTextField(
+                      //   hintText: "2526XXXXXXXX",
+                      //   icon: IconlyLight.call,
+                      //   controller: controller.phone,
+                      //   textCapitalization: TextCapitalization.words,
+                      //   textInputAction: TextInputAction.next,
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return 'Number is required'.tr;
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
                       const SizedBox(
                         height: 25,
                       ),
                       CustomTextField(
-                        hintText: "Password",
+                        hintText: LocaleKeys.password.tr,
                         isobscureText: cont.isVisiblePassword,
                         icon: IconlyLight.lock,
                         controller: controller.password,
@@ -137,7 +183,7 @@ class RegisterView extends GetView<UserController> {
                         height: 25,
                       ),
                       CustomTextField(
-                        hintText: "Confirm Password",
+                        hintText: LocaleKeys.confirm_password.tr,
                         icon: IconlyLight.lock,
                         isobscureText: cont.isVisiblePassword,
                         controller: controller.confirmPassword,
@@ -214,7 +260,9 @@ class RegisterView extends GetView<UserController> {
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                           ),
-                          child: const Text("Sign Up"),
+                          child: Text(
+                            LocaleKeys.sign_up.tr,
+                          ),
                         ),
                       )
                     ],

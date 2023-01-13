@@ -5,6 +5,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../generated/locales.g.dart';
 import '../constants.dart';
 import '../routes/app_pages.dart';
 
@@ -68,8 +69,8 @@ class ProfileMenuHorizontal extends StatelessWidget {
                 onTap: () {
                  
                 },
-                child: const Text(
-                  'View Profile',
+                child:  Text(
+                 LocaleKeys.veiw_profile.tr,
                   style: TextStyle(
                     color: kSecondaryLightColor,
                   ),
@@ -85,7 +86,7 @@ class ProfileMenuHorizontal extends StatelessWidget {
                 'Aqoon Kaal',
                 style: TextStyle(
                     color:
-                        Get.isDarkMode ? Colors.white : Get.theme.primaryColor,
+                       kPrimaryColor,
                     fontSize: 18,
                     fontWeight: FontWeight.w300),
                 maxLines: 1,
@@ -118,8 +119,8 @@ class ProfileMenuHorizontal extends StatelessWidget {
             decoration: DottedDecoration(
                 shape: Shape.circle, color: kPrimaryColor, strokeWidth: 0.5),
             child: CircleAvatar(
-              backgroundImage: ExtendedNetworkImageProvider(
-                "https://www.vocaleurope.eu/wp-content/uploads/no-image.jpg"),
+              backgroundImage: ExtendedAssetImageProvider(
+                kLogo),
               onBackgroundImageError: (e, t) {
                 print('THE ERROR: $e');
                 print('THE TRUCE: $t');

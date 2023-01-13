@@ -14,6 +14,7 @@ class UserController extends GetxController {
     getUser();
   }
   UserModel user = UserModel();
+  PhoneNumber number = PhoneNumber(isoCode: 'SO');
   final box = GetStorage();
   final formKey = GlobalKey<FormState>();
   final lFormKey = GlobalKey<FormState>();
@@ -25,6 +26,8 @@ class UserController extends GetxController {
   // Login TextFields
   TextEditingController username = TextEditingController();
   TextEditingController lPassword = TextEditingController();
+  var usernameValue = ''.obs;
+  var uText = TextEditingController();
 
   // Registration TexFields
   //TextEditingController name = TextEditingController();
@@ -32,6 +35,9 @@ class UserController extends GetxController {
   TextEditingController phone = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
+  var rUsernameValue = ''.obs;
+  var rText = TextEditingController();
+
   PhoneNumber initialNumber = PhoneNumber(isoCode: 'SO');
 
   togglePasswordVisible() {
@@ -42,9 +48,11 @@ class UserController extends GetxController {
   login() async {
     if (lFormKey.currentState?.validate() ?? false) {
       try {
+        Get.focusScope?.unfocus();
         setLoginLoading();
+        String phone = usernameValue.value.substring(1);
         user = await UserProvider()
-            .login(password: lPassword.text, username: username.text);
+            .login(password: lPassword.text, username: phone);
         update();
         Get.offNamed(Routes.HOME);
       } catch (e) {
@@ -69,26 +77,23 @@ class UserController extends GetxController {
     if (formKey.currentState?.validate() ?? false) {
       // String name = this.name.text;
       // String email = this.email.text;
-      String phone = this.phone.text;
+      String phone = rUsernameValue.value.substring(1);
       String password = this.password.text;
       String confirm = confirmPassword.text;
       if (password.length >= 6) {
         if (password == confirm) {
-          if (phone.startsWith("252")) {
-            try {
-              setRegisterLoading();
-              user = await UserProvider()
-                  .createUser(password: password, phone: phone);
-              update();
-              Get.offNamed(Routes.HOME);
-            } catch (e) {
-              log(e.toString(), name: "Register Error");
-              erroMessage(e.toString());
-            }
+          try {
+            Get.focusScope?.unfocus();
             setRegisterLoading();
-          } else {
-            erroMessage("Please enter valid Number 2526XXXXXXXX");
+            user = await UserProvider()
+                .createUser(password: password, phone: phone);
+            update();
+            Get.offNamed(Routes.HOME);
+          } catch (e) {
+            log(e.toString(), name: "Register Error");
+            erroMessage(e.toString());
           }
+          setRegisterLoading();
         } else {
           erroMessage("The two password must mutch each other");
         }
