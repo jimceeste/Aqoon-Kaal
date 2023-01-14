@@ -1,14 +1,14 @@
+import 'package:aqoon_bile/app/modules/about/controllers/about_controller.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../../../constants.dart';
-import '../controllers/about_controller.dart';
-
-class AboutView extends GetView<AboutController> {
-  const AboutView({Key? key}) : super(key: key);
+import 'about_view.dart';
+class AboutAqoonKaab extends StatelessWidget {
+   AboutAqoonKaab({super.key});
+final controller=Get.find<AboutController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,20 +35,20 @@ class AboutView extends GetView<AboutController> {
                     const Image(
                        width: 200,
                        height: 100,
-                      image: AssetImage('assets/images/jtech.png'),
+                      image: AssetImage('assets/images/tgr.png'),
                     ),
-                    Row(
+                    Row( 
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
                         Text(
-                          "JTech",
+                          "Aqoon",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20.0,
+                            fontSize: 20.0, 
                           ),
                         ),
                         Text(
-                          " Solutions",
+                          " Kaab",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,
@@ -59,7 +59,7 @@ class AboutView extends GetView<AboutController> {
                     const SizedBox(height: 4.0),
                     Center(
                         child: Text(
-                      'Making your business flourish',
+                      'Aqoonkaab education platform',
                       style: GoogleFonts.pacifico(
                           color: Colors.white, letterSpacing: 0.3),
                     )),
@@ -87,7 +87,7 @@ class AboutView extends GetView<AboutController> {
                         alignment: WrapAlignment.center,
                         children: const [
                           Text(
-                            '''Jamhuriya Technology Solutions - JTech is a professional technology solution service provider and ICT training center founded in 2020 by Jamhuriya University of Science and Technology in Mogadishu, Somalia. JTech has been established to fill the gap (of quality and creativity) in the field of ICT solutions in our nation and beyond by transforming clients’ business, operating and technology models for the digital era, and offering professional hands-on training to empower individuals and organizations in solving and innovating new ideas.
+                            '''Aqoonkaab education platform waa xarun wax barasho fogaan darsi ah oo loo aas-aasay, si loo kaafiyo baahiyaha ardayda soomaaliyeed, waxbarashadana loo baahiyo heerkasta. Aqoonkaan education platform waxaa lafuray 7-8-2022. Waxaana laga furey deg.Hodanwadaag, xaafada Balagsii.
                             ''',
                             style: TextStyle(
                               color: Colors.white,
@@ -107,19 +107,19 @@ class AboutView extends GetView<AboutController> {
                         LaunchButton(
                           iconData: Icons.call,
                           onPressed: () {
-                            controller.callPhone('tel:0615868999');
+                            controller.callPhone('tel:0619779677');
                           },
                         ),
                         LaunchButton(
                           iconData: Icons.language,
                           onPressed: () {
-                            controller.launchWebsite('https://jtech.so/');
+                            controller.launchWebsite('https://www.aqoonkaab.so/');
                           },
                         ),
                         LaunchButton(
                           iconData: LineIcons.whatSApp,
                           onPressed: () {
-                            controller.launchWhatsApp('252615868999');
+                            controller.launchWhatsApp('252619779677');
                           },
                         ),
                       ],
@@ -157,40 +157,6 @@ class AboutView extends GetView<AboutController> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-class LaunchButton extends StatelessWidget {
-  final void Function()? onPressed;
-  final IconData iconData;
-  final Color? backgroundColor;
-
-  const LaunchButton(
-      {required this.onPressed, required this.iconData, this.backgroundColor});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 42,
-      height: 42,
-      margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-      decoration: BoxDecoration(
-        color: kPrimaryLightColor,
-        border: Border.all(color: Colors.white, width: 2),
-        borderRadius: BorderRadius.circular(50),
-        boxShadow: [
-          BoxShadow(
-            color: backgroundColor == null
-                ? Get.theme.primaryColor
-                : backgroundColor!,
-            blurRadius: 5.0,
-          )
-        ],
-      ),
-      child: IconButton(
-        icon: Icon(iconData, color: Colors.white, size: 22),
-        onPressed: onPressed,
       ),
     );
   }

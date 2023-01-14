@@ -1,5 +1,7 @@
 import 'package:aqoon_bile/app/components/profile_menu.dart';
 import 'package:aqoon_bile/app/extensions.dart';
+import 'package:aqoon_bile/app/modules/about/views/about_aqoon.dart';
+import 'package:aqoon_bile/app/modules/about/views/about_view.dart';
 import 'package:aqoon_bile/app/modules/courses/views/courses_view.dart';
 import 'package:aqoon_bile/app/modules/favorites/controllers/favorites_controller.dart';
 import 'package:aqoon_bile/app/modules/languages/controllers/languages_controller.dart';
@@ -32,19 +34,23 @@ class ProfileView extends GetView<ProfileController> {
                   const ProfileMenuHorizontal(
                     name: "AHMED MOHAMED",
                   ),
-                  ProfileMenu(
-                    onPressed: () => Get.to(()=>CoursesView()),
-                    text: LocaleKeys.my_courses.tr,
-                    leadingIcon: Icon(
-                      IconlyLight.discovery,
-                      color: kPrimaryColor,
-                    ),
-                  ),
+                  GetBuilder<UserController>(builder: (cont) {
+                    return cont.hasData
+                        ? ProfileMenu(
+                            onPressed: () => Get.to(() => const CoursesView()),
+                            text: LocaleKeys.my_courses.tr,
+                            leadingIcon: const Icon(
+                              IconlyLight.discovery,
+                              color: kPrimaryColor,
+                            ),
+                          )
+                        : const SizedBox();
+                  }),
                   GetBuilder<FavoritesController>(builder: (cont) {
                     return ProfileMenu(
                       onPressed: () => Get.toNamed(Routes.FAVORITES),
                       text: LocaleKeys.favorites.tr,
-                      leadingIcon: Icon(
+                      leadingIcon: const Icon(
                         IconlyLight.heart,
                         color: kPrimaryColor,
                       ),
@@ -63,11 +69,11 @@ class ProfileView extends GetView<ProfileController> {
                   ProfileMenu(
                     onPressed: () => Get.switchTheme(context),
                     text: LocaleKeys.dark_mode.tr,
-                    leadingIcon: Icon(
+                    leadingIcon: const Icon(
                       CupertinoIcons.brightness,
                       color: kPrimaryColor,
                     ),
-                    suffixIcon: Icon(
+                    suffixIcon: const Icon(
                       Icons.toggle_off_outlined,
                       color: kPrimaryColor,
                     ),
@@ -76,7 +82,7 @@ class ProfileView extends GetView<ProfileController> {
                     return ProfileMenu(
                       onPressed: () => Get.toNamed(Routes.LANGUAGES),
                       text: LocaleKeys.languages.tr,
-                      leadingIcon: Icon(
+                      leadingIcon: const Icon(
                         Icons.translate,
                         color: kPrimaryColor,
                       ),
@@ -103,6 +109,20 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                     );
                   }),
+                  ProfileMenu(
+                      text: "About Aqoon-Kaab",
+                      leadingIcon: const Icon(
+                        IconlyLight.info_circle,
+                        color: kPrimaryColor,
+                      ),
+                      onPressed: () => Get.to(() => AboutAqoonKaab())),
+                  ProfileMenu(
+                      text: "About Developer",
+                      leadingIcon: const Icon(
+                        IconlyLight.chart,
+                        color: kPrimaryColor,
+                      ),
+                      onPressed: () => Get.to(() => const AboutView())),
                   GetBuilder<UserController>(builder: (cont) {
                     return Visibility(
                       visible: cont.hasData,

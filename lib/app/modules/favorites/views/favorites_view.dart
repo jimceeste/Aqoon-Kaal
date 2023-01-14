@@ -17,6 +17,7 @@ class FavoritesView extends GetView<FavoritesController> {
             style: TextStyle(color: Theme.of(context).hoverColor),
           ),
           centerTitle: true,
+          elevation: 0,
           backgroundColor: Theme.of(context).cardColor,
           iconTheme: IconThemeData(color: Theme.of(context).hoverColor),
         ),
@@ -25,7 +26,7 @@ class FavoritesView extends GetView<FavoritesController> {
             Expanded(child: GetBuilder<FavoritesController>(
               builder: (cont) {
                 if (cont.favoriteCourses.isEmpty) {
-                  return Text("No Favorites");
+                  return const Center(child: Text("No Favorites"));
                 } else {
                   return GridView.builder(
                     itemCount: cont.favoriteCourses.length,

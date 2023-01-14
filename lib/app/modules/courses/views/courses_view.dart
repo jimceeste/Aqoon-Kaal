@@ -33,11 +33,11 @@ class _CoursesViewState extends State<CoursesView> with AfterLayoutMixin {
             Expanded(child: GetBuilder<CoursesController>(
               builder: (cont) {
                 if (cont.isBundleLoading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (cont.bundles.isEmpty) {
-                  return Center(
+                } else if (cont.myBundles.isEmpty) {
+                  return const Center(
                     child: Text("You don't have courses"),
                   );
                 } else {

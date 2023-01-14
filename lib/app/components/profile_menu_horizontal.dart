@@ -71,7 +71,7 @@ class ProfileMenuHorizontal extends StatelessWidget {
                 },
                 child:  Text(
                  LocaleKeys.veiw_profile.tr,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: kSecondaryLightColor,
                   ),
                 ),
@@ -82,7 +82,7 @@ class ProfileMenuHorizontal extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Aqoon Kaal',
                 style: TextStyle(
                     color:
@@ -119,7 +119,7 @@ class ProfileMenuHorizontal extends StatelessWidget {
             decoration: DottedDecoration(
                 shape: Shape.circle, color: kPrimaryColor, strokeWidth: 0.5),
             child: CircleAvatar(
-              backgroundImage: ExtendedAssetImageProvider(
+              backgroundImage: const ExtendedAssetImageProvider(
                 kLogo),
               onBackgroundImageError: (e, t) {
                 print('THE ERROR: $e');
@@ -133,23 +133,10 @@ class ProfileMenuHorizontal extends StatelessWidget {
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.white, width: 3),
                 shape: BoxShape.circle,
-                boxShadow: Get.isDarkMode
-                    ? []
-                    : [
-                        BoxShadow(
-                            offset: const Offset(1, 10),
-                            color: Colors.grey.shade200,
-                            blurRadius: 12,
-                            blurStyle: BlurStyle.normal),
-                        BoxShadow(
-                            offset: const Offset(1, 10),
-                            color: Colors.grey.shade300,
-                            blurRadius: 12,
-                            blurStyle: BlurStyle.normal)
-                      ]),
+             ),
             child: CircleAvatar(
               radius: 28,
-              backgroundImage:  ExtendedNetworkImageProvider("https://www.vocaleurope.eu/wp-content/uploads/no-image.jpg"),
+              backgroundImage:  const ExtendedAssetImageProvider(kLogo),
               onBackgroundImageError: (e, t) {
                 print('THE ERROR: $e');
                 print('THE TRUCE: $t');

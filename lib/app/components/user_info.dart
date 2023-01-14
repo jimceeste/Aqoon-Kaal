@@ -36,13 +36,13 @@ class UserInfoCard extends StatelessWidget {
                     Text(
                       LocaleKeys.welcome.tr,
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+                          const TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
                     ),
                     const SizedBox(
                       height: 4,
                     ),
                     Text(
-                      (cont.user.dDoc?.phone ?? "Dear"),
+                      (cont.user.dDoc?.phone ?? LocaleKeys.dear.tr),
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w500),
                       maxLines: 1,
@@ -52,7 +52,7 @@ class UserInfoCard extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () => Get.to(()=>FavoritesView()),
+                onTap: () => Get.to(()=>const FavoritesView()),
                 child: const Icon(IconlyLight.heart),
               ),
             ],

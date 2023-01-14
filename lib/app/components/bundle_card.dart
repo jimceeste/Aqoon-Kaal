@@ -173,7 +173,7 @@ class BundleCard extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(12)),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    "Enroll now",
+                                  LocaleKeys.enroll_now.tr,
                                     style: TextStyle(
                                         color: Theme.of(context).cardColor),
                                   ),

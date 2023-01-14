@@ -121,7 +121,7 @@ class HomeView extends GetView<HomeController> {
           child: AnnotatedRegion<SystemUiOverlayStyle>(
             value: SystemUiOverlayStyle(
                 //this color must be equal to the WaterDropNavBar backgroundColor
-                statusBarColor:Get.theme.scaffoldBackgroundColor ,
+                //statusBarColor:Get.theme.scaffoldBackgroundColor ,
                 systemNavigationBarColor: Get.theme.cardColor,
                 systemNavigationBarIconBrightness: Brightness.dark,
               ),

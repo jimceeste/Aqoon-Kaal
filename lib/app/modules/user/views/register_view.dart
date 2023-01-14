@@ -56,10 +56,10 @@ class RegisterView extends GetView<UserController> {
                 Navigator.pop(context);
               },
             ),
-            title: const Text(
-              'Register',
+            title:  Text(
+             LocaleKeys.register.tr,
               style:
-                  TextStyle(color: kPrimaryColor, fontWeight: FontWeight.w600),
+                  const TextStyle(color: kPrimaryColor, fontWeight: FontWeight.w600),
             ),
           ),
           body: Form(
@@ -78,7 +78,7 @@ class RegisterView extends GetView<UserController> {
                         alignment: Alignment.center,
                         child: Text(
                           LocaleKeys.please_enter_your.tr,
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -102,7 +102,7 @@ class RegisterView extends GetView<UserController> {
                         height: 25,
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 30),
+                        margin: const EdgeInsets.symmetric(horizontal: 30),
                         padding: const EdgeInsets.all(5.0),
                         decoration: BoxDecoration(
                           //color: Get.theme.cardColor,

@@ -28,10 +28,10 @@ class CoursesProvider extends GetConnect {
         await http.post(Uri.parse("$kEndPoint/read-bundle-courses"), body: {
       "_id": id
     },
-    //  headers: {
-    //   //HttpHeaders.contentTypeHeader: 'application/json',
-    //   HttpHeaders.authorizationHeader: 'Bearer ${user.user.token!}'
-    // },
+     headers: {
+      //HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.authorizationHeader: 'Bearer ${user.user.token!}'
+    },
     );
     if (response.statusCode == 200) {
       List decodedData = jsonDecode(response.body);

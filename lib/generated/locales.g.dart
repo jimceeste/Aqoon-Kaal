@@ -40,6 +40,9 @@ class LocaleKeys {
   static const buy_now = 'buy_now';
   static const course_detail = 'course_detail';
   static const topics = 'topics';
+  static const dear = 'dear';
+  static const enroll_now = 'enroll_now';
+  static const register = 'register';
 }
 
 class Locales {
@@ -73,6 +76,9 @@ class Locales {
     'buy_now': 'اشتري الآن',
     'course_detail': 'تفاصيل الدورة',
     'topics': 'المواضيع',
+    'dear': 'العزيز',
+    'enroll_now': 'تسجيل الآن',
+    'register': 'تسجيل',
   };
   static const en_US = {
     'my_account': 'My Account',
@@ -104,6 +110,9 @@ class Locales {
     'buy_now': 'Buy now',
     'course_detail': 'Course Detail',
     'topics': 'Topics',
+    'dear': 'Dear',
+    'enroll_now': 'Enroll now',
+    'register': 'Register',
   };
   static const so_SO = {
     'my_account': 'My Account',
@@ -135,5 +144,8 @@ class Locales {
     'buy_now': 'Gado hada',
     'course_detail': 'FaahFaahinta koorsada',
     'topics': 'Mawduucyada',
+    'dear': 'Wallal',
+    'enroll_now': 'Is diiwaan gali',
+    'register': 'diiwaan geli',
   };
 }

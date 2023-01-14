@@ -1,3 +1,4 @@
+import 'package:aqoon_bile/app/modules/about/controllers/about_controller.dart';
 import 'package:aqoon_bile/app/modules/languages/controllers/languages_controller.dart';
 import 'package:aqoon_bile/app/modules/user/controllers/user_controller.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,7 @@ class HomeBinding extends Bindings {
     Get.put<UserController>(UserController(), permanent: true);
     Get.put<CoursesController>(CoursesController(), permanent: true);
     Get.put<FavoritesController>(FavoritesController(), permanent: true);
-     Get.put<LanguagesController>(LanguagesController(), permanent: true);
+    Get.put<LanguagesController>(LanguagesController(), permanent: true);
+    Get.put<AboutController>(AboutController(), permanent: true);
   }
 }

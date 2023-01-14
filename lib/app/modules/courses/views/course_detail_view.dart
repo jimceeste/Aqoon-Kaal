@@ -10,7 +10,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:money_formatter/money_formatter.dart';
 
 import '../../../components/play_video_card.dart';
-import '../../../components/video_player.dart';
+import '../../../components/player.dart';
 import '../../../constants.dart';
 import '../../../data/models/course_model.dart';
 
@@ -44,9 +44,11 @@ class CourseDetailView extends GetView<CoursesController> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               const VideoPlayer(id:"760282468"),
-              Row( 
-                
+              //VideoPlayer(id: videoId(lesson, course),),
+              FramPlayer(
+                id: videoId(lesson, course),
+              ),
+              Row(
                 children: [
                   Expanded(
                     child: Container(
@@ -135,9 +137,9 @@ class CourseDetailView extends GetView<CoursesController> {
                   left: 8.0,
                   top: 12,
                 ),
-                child:  Text(
-                 LocaleKeys.topics.tr,
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                child: Text(
+                  LocaleKeys.topics.tr,
+                  style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
               ),
               topics(course),
@@ -146,9 +148,9 @@ class CourseDetailView extends GetView<CoursesController> {
                   left: 8.0,
                   top: 12,
                 ),
-                child:  Text(
-                   LocaleKeys.lessons.tr,
-                  style: TextStyle(fontWeight: FontWeight.w500),
+                child: Text(
+                  LocaleKeys.lessons.tr,
+                  style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
               sections(course),
@@ -193,7 +195,8 @@ class CourseDetailView extends GetView<CoursesController> {
                           height: 55,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                elevation: 0, backgroundColor: kPrimaryColor,
+                                elevation: 0,
+                                backgroundColor: kPrimaryColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12.0))),
                             onPressed: () {

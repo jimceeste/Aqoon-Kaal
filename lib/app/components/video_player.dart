@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 
-
 class VideoPlayer extends StatefulWidget {
   const VideoPlayer({Key? key, required this.id}) : super(key: key);
   final String id;
@@ -17,8 +16,9 @@ class _VideoPlayerState extends State<VideoPlayer> {
   @override
   void initState() {
     controller = PodPlayerController(
-      playVideoFrom: PlayVideoFrom.vimeo(
-        widget.id,
+      playVideoFrom: PlayVideoFrom.network(
+        // widget.id,
+        "https://player.vimeo.com/video/766831386?h=27cfc7bc2d"
       ),
       podPlayerConfig: const PodPlayerConfig(
         autoPlay: true,
@@ -35,7 +35,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-print("THE IDPASSED IS: ${widget.id}");
+    print("THE IDPASSED IS: ${widget.id}");
     return PodVideoPlayer(
       // onVideoError: () {
       //   return const AspectRatio(
