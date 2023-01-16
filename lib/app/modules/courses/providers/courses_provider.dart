@@ -24,14 +24,13 @@ class CoursesProvider extends GetConnect {
   getBundleCourses({required String id}) async {
     //print(user.user.token);
     print(id);
-    var response =
-        await http.post(Uri.parse("$kEndPoint/read-bundle-courses"), body: {
-      "_id": id
-    },
-     headers: {
-      //HttpHeaders.contentTypeHeader: 'application/json',
-      HttpHeaders.authorizationHeader: 'Bearer ${user.user.token!}'
-    },
+    var response = await http.post(
+      Uri.parse("$kEndPoint/read-bundle-courses"),
+      body: {"_id": id},
+      headers: {
+        //HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer ${user.user.token!}'
+      },
     );
     if (response.statusCode == 200) {
       List decodedData = jsonDecode(response.body);
@@ -53,8 +52,32 @@ class CoursesProvider extends GetConnect {
         });
     if (response.statusCode == 200) {
       final decodedData = jsonDecode(response.body);
-      if(!decodedData['success']) throw response.body;
+      if (!decodedData['success']) throw response.body;
       print(decodedData);
+      return decodedData;
+    } else {
+      throw response.body;
+    }
+  }
+
+  cashOnDelivery(
+      {required String phone,
+      required String price,
+      required String id,
+      required String userId}) async {
+    var response = await http.post(
+        Uri.parse("$kEndPoint/course/enroll-cash-on-delivery-bundle/$id"),
+        body: {
+          "phone": phone,
+          "price": price
+        },
+        headers: {
+          //HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: 'Bearer ${user.user.token!}'
+        });
+    if (response.statusCode == 200) {
+      final decodedData = jsonDecode(response.body);
+      print("THE DATA: $decodedData");
       return decodedData;
     } else {
       throw response.body;

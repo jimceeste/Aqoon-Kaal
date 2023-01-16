@@ -6,55 +6,53 @@ class BundleShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      slivers: [
-        SliverGrid(
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: Get.height * 0.3 + 10,
-            mainAxisExtent: Get.width * 0.6,
+    return GridView.builder(
+      //shrinkWrap: true,
+      gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisExtent: Get.height * 0.3 + 10
+      ),
+      itemBuilder: (context, index) => const Shim(),
+    );
+  }
+}
 
-            mainAxisSpacing: 10.0,
-            // crossAxisSpacing: 10.0,
-            // childAspectRatio: 4.0,
-          ),
-          delegate: SliverChildBuilderDelegate(
-            childCount: 20,
-            (context, index) => Container(
-              decoration: const BoxDecoration(
-                color: Colors.cyan
-              ),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: const BoxDecoration(color: Colors.grey),
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 200,
-                          height: 40,
-                          decoration: const BoxDecoration(color: Colors.grey),
-                        ),
-                        Container(
-                          width: 100,
-                          height: 40,
-                          decoration: const BoxDecoration(color: Colors.grey),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+class Shim extends StatelessWidget {
+  const Shim({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: Get.width * 0.6,
+      height: Get.height * 0.3 + 10,
+      decoration: const BoxDecoration(color: Colors.cyan),
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(color: Colors.red),
             ),
           ),
-        )
-      ],
+          Expanded(
+            child: Column(
+              children: [
+                Container(
+                  width: 200,
+                  height: 40,
+                  decoration: const BoxDecoration(color: Colors.grey),
+                ),
+                Container(
+                  width: 100,
+                  height: 40,
+                  decoration: const BoxDecoration(color: Colors.grey),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

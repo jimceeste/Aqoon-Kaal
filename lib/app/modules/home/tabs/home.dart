@@ -1,4 +1,3 @@
-
 import 'package:aqoon_bile/app/modules/courses/controllers/courses_controller.dart';
 import 'package:aqoon_bile/app/modules/user/views/user_view.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +22,12 @@ class Home extends StatelessWidget {
               [
                 const UserInfoCard(),
                 SearchCard(onTap: () => Get.to(() => const UserView())),
-                Seprator(title:  LocaleKeys.popular_courses.tr, onPressed: () {}),
+                Seprator(
+                    title: LocaleKeys.popular_courses.tr, onPressed: () {}),
                 GetBuilder<CoursesController>(
                   builder: (cont) {
                     if (cont.isBundleLoading) {
-                      return const Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator(),);
                     } else if (cont.bundles.isEmpty) {
                       return const Center(child: Text("No Bundles at all"));
                     } else {
@@ -49,7 +49,7 @@ class Home extends StatelessWidget {
                             delegate: SliverChildBuilderDelegate(
                               childCount: cont.bundles.length,
                               (context, index) => BundleCard(
-                                bundle:cont.bundles[index] ,
+                                bundle: cont.bundles[index],
                               ),
                             ),
                           )

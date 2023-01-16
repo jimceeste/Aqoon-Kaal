@@ -18,6 +18,7 @@ class CoursesController extends GetxController {
   bool isCourseLoading = false;
   bool isBuyingCourse = false;
   bool isBundleCoursesLoading = false;
+  bool isCashOndeliveryLoading = false;
   String currentSelectedVideo = '';
   String currentSection = '';
   int isSelectedCashOnDelivery = 11;
@@ -35,8 +36,8 @@ class CoursesController extends GetxController {
     update();
   }
 
-  setBundleCoursesLoading() {
-    isBundleCoursesLoading = !isBundleCoursesLoading;
+  setBundleCoursesLoading(bool isLoading) {
+    isBundleCoursesLoading = isLoading;
     update();
   }
 
@@ -85,16 +86,32 @@ class CoursesController extends GetxController {
 
   getBundleCourses({required String id}) async {
     try {
-      setBundleCoursesLoading();
-      courses = await CoursesProvider().getBundleCourses(id: id);
-      print("THE DATA: $courses");
+      if (courses.isNotEmpty) {
+        for (var element in bundles) {
+          if (element.sId == id) {
+            log("WAA ISKU MID");
+            setBundleCoursesLoading(false);
+            return;
+          } else {
+            log("WAA la WAAYE MID");
+            setBundleCoursesLoading(true);
+            courses = await CoursesProvider().getBundleCourses(id: id);
+            update();
+          }
+        }
+      } else {
+        setBundleCoursesLoading(true);
+        courses = await CoursesProvider().getBundleCourses(id: id);
+        print("THE DATA: $courses");
+        update();
+      }
     } catch (e) {
       log(e.toString(), name: "Get Bundle Courses ERROR");
     }
-    setBundleCoursesLoading();
+    setBundleCoursesLoading(false);
   }
 
-  buyCourse({required String bundleId}) async {
+  buyCourse({required String bundleId, required double price}) async {
     if (formKey.currentState?.validate() ?? false) {
       try {
         isBuyingCourse = true;
@@ -102,10 +119,11 @@ class CoursesController extends GetxController {
         String phone = numberValue.substring(1);
         bool isCashOnDelivery = isSelectedCashOnDelivery == 1;
         if (isCashOnDelivery) {
+          await cashOndelivery(price: price.toString(), id: bundleId);
         } else {
           var data = await CoursesProvider()
               .buyCourse(bundleId: bundleId, phone: phone);
-
+          Get.back();
           erroMessage(data);
         }
       } catch (e) {
@@ -115,6 +133,30 @@ class CoursesController extends GetxController {
       isBuyingCourse = false;
       update();
     }
+  }
+
+  cashOndelivery({required String price, required String id}) async {
+    try {
+      // isCashOndeliveryLoading = true;
+      // update();
+      final user = Get.find<UserController>();
+      String phone = numberValue.value.substring(1);
+      var data = await CoursesProvider().cashOnDelivery(
+          phone: phone,
+          price: price,
+          id: id,
+          userId: user.user.dDoc?.sId ?? "");
+      user.checkToken();
+      Get.back();
+      print(data);
+      erroMessage(data['message']);
+      update();
+    } catch (e) {
+      log(e.toString(), name: "Cash on delivery");
+      erroMessage(e.toString());
+    }
+    // isCashOndeliveryLoading = false;
+    // update();
   }
 
   bool isPaidBundle(BundleModel bundle) {

@@ -1,5 +1,7 @@
+import 'package:aqoon_bile/app/components/web_player.dart';
 import 'package:aqoon_bile/app/modules/user/controllers/user_controller.dart';
 import 'package:aqoon_bile/generated/locales.g.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,17 +12,49 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:money_formatter/money_formatter.dart';
 
 import '../../../components/play_video_card.dart';
-import '../../../components/player.dart';
 import '../../../constants.dart';
 import '../../../data/models/course_model.dart';
 
 import '../controllers/courses_controller.dart';
 
-class CourseDetailView extends GetView<CoursesController> {
+class CourseDetailView extends StatefulWidget {
   final CourseModel course;
   final Lessons? lesson;
 
   const CourseDetailView(this.lesson, {required this.course});
+
+  @override
+  State<CourseDetailView> createState() => _CourseDetailViewState();
+}
+
+class _CourseDetailViewState extends State<CourseDetailView> {
+  bool isConnected = true;
+  var subscription;
+  @override
+  void initState() {
+    super.initState();
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      print("the result: $result");
+      if (result == ConnectivityResult.none) {
+        isConnected = false;
+        // controller.reload();
+        setState(() {});
+      } else {
+        isConnected = true;
+        //controller.reload();
+        setState(() {});
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    subscription.cancel();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -33,7 +67,9 @@ class CourseDetailView extends GetView<CoursesController> {
           iconTheme: IconThemeData(color: Get.theme.hoverColor),
           elevation: 0,
           title: Text(
-            lesson != null ? lesson!.title! : LocaleKeys.course_detail.tr,
+            widget.lesson != null
+                ? widget.lesson!.title!
+                : LocaleKeys.course_detail.tr,
             style: TextStyle(
                 color: Get.theme.hoverColor, fontWeight: FontWeight.w300),
           ),
@@ -45,16 +81,34 @@ class CourseDetailView extends GetView<CoursesController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //VideoPlayer(id: videoId(lesson, course),),
-              FramPlayer(
-                id: videoId(lesson, course),
+              // FramPlayer(
+              //   id: videoId(lesson, course),
+              // ),
+              AspectRatio(
+                aspectRatio: 16 / 9,
+                child: isConnected
+                    ? WebPlayer(
+                        id: videoId(widget.lesson, widget.course),
+                      )
+                    : Container(
+                        color: Colors.black,
+                        child: const Center(
+                          child: Text(
+                            "Please check your internet \nconnection 😔",
+                            style: TextStyle(color: Colors.white),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
               ),
+              // PlayerTwo(id:videoId(lesson, course), ),
               Row(
                 children: [
                   Expanded(
                     child: Container(
                       margin: const EdgeInsets.only(left: 8, top: 8),
                       child: Text(
-                        course.name ?? "",
+                        widget.course.name ?? "",
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -82,7 +136,7 @@ class CourseDetailView extends GetView<CoursesController> {
                           left: 8,
                         ),
                         child: Text(
-                          course.instructor?.username ?? "Aqoon Kaal",
+                          widget.course.instructor?.username ?? "Aqoon Kaal",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -104,7 +158,7 @@ class CourseDetailView extends GetView<CoursesController> {
                                 left: 3,
                               ),
                               child: Text(
-                                '${lessonsLength(course)} Videos',
+                                '${lessonsLength(widget.course)} Videos',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
@@ -123,7 +177,7 @@ class CourseDetailView extends GetView<CoursesController> {
               Container(
                 margin: const EdgeInsets.only(left: 8, right: 8, top: 12),
                 child: Text(
-                  course.shortDescription ?? "",
+                  widget.course.shortDescription ?? "",
                   textAlign: TextAlign.justify,
                   style: const TextStyle(
                     fontSize: 13,
@@ -142,7 +196,7 @@ class CourseDetailView extends GetView<CoursesController> {
                   style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
               ),
-              topics(course),
+              topics(widget.course),
               Container(
                 margin: const EdgeInsets.only(
                   left: 8.0,
@@ -153,12 +207,12 @@ class CourseDetailView extends GetView<CoursesController> {
                   style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
-              sections(course),
+              sections(widget.course),
             ],
           ),
         ),
-        floatingActionButton: course.isAppleReview != true
-            ? course.paid != true
+        floatingActionButton: widget.course.isAppleReview != true
+            ? widget.course.paid != true
                 ? GetBuilder<CoursesController>(builder: (cont) {
                     return GetBuilder<UserController>(builder: (login) {
                       return FloatingActionButton.extended(
@@ -181,12 +235,12 @@ class CourseDetailView extends GetView<CoursesController> {
                   })
                 : const SizedBox()
             : const SizedBox(),
-        bottomNavigationBar: course.isAppleReview != true
-            ? course.paid == false
+        bottomNavigationBar: widget.course.isAppleReview != true
+            ? widget.course.paid == false
                 ? const SizedBox()
                 : GetBuilder<UserController>(builder: (login) {
                     return GetBuilder<CoursesController>(builder: (cont) {
-                      if (cont.isPaidCourse(course)) {
+                      if (cont.isPaidCourse(widget.course)) {
                         return const SizedBox();
                       } else {
                         return Container(
@@ -344,7 +398,7 @@ class CourseDetailView extends GetView<CoursesController> {
                                     fontSize: 12, fontWeight: FontWeight.w300),
                                 children: [
                                   TextSpan(
-                                      text: price(course),
+                                      text: price(widget.course),
                                       style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold))

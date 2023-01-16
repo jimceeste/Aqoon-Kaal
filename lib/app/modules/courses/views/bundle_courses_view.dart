@@ -53,7 +53,7 @@ class _BundleCoursesViewState extends State<BundleCoursesView>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-             LocaleKeys.all_lessons_you_get.tr,
+                LocaleKeys.all_lessons_you_get.tr,
                 style: GoogleFonts.poppins(
                     fontSize: 18, fontWeight: FontWeight.w500),
               ),
@@ -101,7 +101,9 @@ class _BundleCoursesViewState extends State<BundleCoursesView>
                   onPressed: () => paymentPopUp(),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: kPrimaryColor, elevation: 0),
-                  child:  Text( LocaleKeys.buy_now.tr,),
+                  child: Text(
+                    LocaleKeys.buy_now.tr,
+                  ),
                 ),
               ),
       );
@@ -229,8 +231,13 @@ class _BundleCoursesViewState extends State<BundleCoursesView>
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: kPrimaryColor, elevation: 0),
                               onPressed: () => cont.buyCourse(
-                                  bundleId: widget.bundle.sId ?? ""),
-                              child: const Text('Submit'),
+                                  bundleId: widget.bundle.sId ?? "",
+                                  price: widget.bundle.price ?? 0.0),
+                              child: cont.isBundleCoursesLoading
+                                  ? const CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )
+                                  : const Text('Submit'),
                             ),
                           )
                         ],
@@ -264,7 +271,7 @@ class _BundleCoursesViewState extends State<BundleCoursesView>
                 height: 16,
               ),
               TextButton(
-                onPressed: () =>Get.toNamed(Routes.USER),
+                onPressed: () => Get.toNamed(Routes.USER),
                 child: const Text(
                   "Sign in",
                   style: TextStyle(color: kPrimaryColor),
